@@ -26,7 +26,7 @@ public class T1 {
 
         //TODO: Hacer cambios de strings de prueba a strings de entrada
         String prueba =  "(a.b)*";  
-        String prueba1 = "ababab";
+        String prueba1 = "aaabababbbbbab";
 
         //Comprobamos la validez de la ER
         if (!Er.ValidarER(prueba)) {

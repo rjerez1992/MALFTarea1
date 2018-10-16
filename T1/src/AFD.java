@@ -597,17 +597,22 @@ public class AFD {
     }
     
     public ArrayList<Par> EliminarSubcalces(ArrayList<Par> p){
-        //Necesitamos identificar los posibles calces aninados
-        //Primero revisamos los contiguos        
-        
-        //Luego revisamos los solapados
-        
-        //Luego verificamos si efectivamente cumplen con ser calces anidados
-                
-        //Entonces eliminamos esos calces anidados
-        
-        //Luego retornamos la lista actualizada        
-        return p;
+        ArrayList<Par> calcesFiltrados = new ArrayList<Par>();
+        for (int i = 0; i < p.size(); i++) {
+            Par pivote = p.get(i);
+            boolean noEsSubcalce = true;
+            for (int j = 0; j < p.size(); j++) {
+                //Nota: El contiene comprueba que no sea el mismo nodo.
+                if (p.get(j).Contiene(pivote)){
+                    noEsSubcalce = false;
+                    break;
+                }
+            }
+            if (noEsSubcalce){
+                calcesFiltrados.add(pivote);
+            }
+        }        
+        return calcesFiltrados;    
     }
 }
 
