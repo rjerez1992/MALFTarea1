@@ -19,7 +19,7 @@ public class T1 {
         String cadena = s.nextLine();*/
 
         //TODO: Hacer cambios de strings de prueba a strings de entrada
-        String prueba =  "a.b";  
+        String prueba =  "a.(b*)";  
         String prueba1 = "aaabababbbbbab";
 
         //Generamos la estructura de la ER
@@ -36,6 +36,7 @@ public class T1 {
 
         //Generamos el AFD a partir del AFND
         AFD2 afd = new AFD2(afnd);
+        afd.Imprimir();
         //afd.Imprimir(); 
 
         System.out.println("");
