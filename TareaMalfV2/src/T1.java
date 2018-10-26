@@ -19,7 +19,7 @@ public class T1 {
         String cadena = s.nextLine();*/
 
         //TODO: Hacer cambios de strings de prueba a strings de entrada
-        String prueba =  "aab";  
+        String prueba =  "a.b";  
         String prueba1 = "aaabababbbbbab";
 
         //Generamos la estructura de la ER
@@ -29,7 +29,7 @@ public class T1 {
         //Generamos el AFND a partir de la ER
         AFND afnd = new AFND(er.Estructura);
         afnd.AsignarAlfabeto(er.Alfabeto());
-        afnd.Complementar();
+       // afnd.Complementar(); -> esto esta demas
         afnd.Imprimir();
 
         System.out.println("");
