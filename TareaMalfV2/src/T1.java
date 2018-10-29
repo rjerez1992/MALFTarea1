@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 /**
@@ -14,16 +13,16 @@ public class T1 {
      */
     public static void main(String[] args) {    
         //Leemos los datos desde el archivo
-        /*Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         String expresion = s.nextLine();
-        String cadena = s.nextLine();*/
+        String cadena = s.nextLine();
 
         //TODO: Hacer cambios de strings de prueba a strings de entrada
-        String prueba =  "a.(b*)";  
-        String prueba1 = "aaabababbbbbab";
+        //String prueba =  "(((a.b*)*)*)*";  
+        //String prueba1 = "ababcaaacbbb";
 
         //Generamos la estructura de la ER
-        Er er = new Er(prueba); 
+        Er er = new Er(expresion); 
         //er.Imprimir(); //TODO: Eliminar esto antes de enviar
 
         //Generamos el AFND a partir de la ER
@@ -49,7 +48,7 @@ public class T1 {
         //afd = new AFD2(afnd);
 
         //Comprobamos los calces
-        //afd.Comprobar(prueba1);
+        afd.Comprobar(cadena);
         //System.out.println(prueba);
         //System.out.println(prueba1);
     }    

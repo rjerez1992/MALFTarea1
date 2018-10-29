@@ -19,7 +19,7 @@ public class T1 {
         String cadena = s.nextLine();*/
 
         //TODO: Hacer cambios de strings de prueba a strings de entrada
-        String prueba =  "aab";  
+        String prueba =  "a.a.b";  
         String prueba1 = "aaabababbbbbab";
 
         //Generamos la estructura de la ER

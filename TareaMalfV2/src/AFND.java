@@ -193,14 +193,10 @@ public class AFND {
      * Agrega el complemento de loop en el estado inicial para consumir
      * caracteres iniciales de la cadena.
      */
-    public void Complementar(){
-        
+    public void Complementar(){        
         for(String s : Alfabeto){
             this.EstadoInicial.Agregar(s.charAt(0), this.EstadoInicial.Identificador);
-        }
-         
-        
-        
+        }        
     }
     
     public void ReiniciarContador(){

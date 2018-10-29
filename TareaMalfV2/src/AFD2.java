@@ -1,4 +1,3 @@
-
 import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +6,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+import t1.LibEr.Operacion;
 import t1.LibFnd.Estado;
+import t1.LibFnd.Par;
 import t1.LibFnd.Transicion;
 
 
@@ -310,7 +311,7 @@ public class AFD2 {
              Transicion t = transicionesPorRecorrer.pop();
              //System.out.println(t.getNodoB() + "Transiciones por eliminar"+transicionesPorRecorrer.size());
              if(t.getCaracter() == '_'){
-                 if(!visitados.contains(t)){
+                 if(!visitados.contains(t.getNodoB())){
                      this.estadosPorRecorrer.add(t.getNodoB());
                  }
                  /*for (Integer i : visitados) {
@@ -472,7 +473,118 @@ public class AFD2 {
               }
           }
           System.out.println("}");
-
+    }
+      
+      
+      /**
+     * Ejecuta la comprobacion de ocurrencias utilizando el AFD y recibiendo una cadena
+     * @param s 
+     */
+    public void Comprobar(String s) { 
+        System.out.println("Ocurrencias:");
+        ArrayList<Par> calces = new ArrayList<Par>();
+        
+        //Revisamos si s contiene caracteres indebidos
+        if (!Operacion.PerteneceAlLenguaje(s)){
+            System.out.println("La cadena ingresada contiene caracteres que no pertenecen al lenguaje del automata.");
+            System.exit(0);
+        }
+        
+        //Comenzamos en el estado inicial
+        //Estado estadoActual = this.EstadoInicial;
+        
+        //Por cada posicion en el string, hacemos la revision de ahi en adelante
+        //aumentando el rango en que se revisa cada vez y guardando los matchs
+        //en otra variable para luego ver calzes solapados o contiguos
+        for (int i = 0; i <= s.length(); i++) {                        
+            for (int j = i; j <= s.length(); j++) {
+                String pivote = s.substring(i, j);
+                if (pivote.equals("")){
+                    continue;
+                }
+                //System.out.println("PIVOTE: "+pivote);
+                //System.out.println("I: "+i+" J: "+j);
+                if (esMatch(pivote)){
+                    calces.add(new Par(i, j));
+                }
+            }            
+        }
+        
+        //Revisamos los calces solapados y contiguos
+        calces = EliminarSubcalces(calces); //Funcion definida abajo
+        
+        //Imprimimos el resultado
+        for(Par p : calces){
+            System.out.println(p.toString());
+        }
+    }
+    
+    /**
+     * Verifica si el string dado es un match para el automata actual o no.
+     * @param s
+     * @return 
+     */
+    public boolean esMatch(String s){
+        Estado actual = this.estadoInicial;
+        //Por cada caracter efectuamos la transicion
+        for(char c : s.toCharArray()){
+            
+            int p = actual.TransicionCon(c);
+            if (p == -1){
+                p = actual.TransicionCon('%');
+            }
+            if (p == -1){
+                return false;
+            }
+            actual = estadoConId(p);            
+        }
+        //Si al final logramos llegar a uno de los estados finales, entonces
+        //el string ingresado es un calce.
+        if (this.estadosFinales.contains(actual)){
+            return true;
+        }
+        return false;        
+    }
+    
+    /**
+     * Busca el estado con el id (i)
+     * @param i
+     * @return 
+     */
+    public Estado estadoConId(int i){    
+        for(Estado e : this.Nodos){
+            //System.out.println("I: "+i+" E.i: "+e.Identificador);
+            if (e.Identificador == i){
+                return e;
+            }
+        }
+        //Nunca debería llegar a este punto
+        System.out.println("Advertencia: Busqueda por estado inexistente.");
+        return null;
+        
+    }    
+    
+    public void ReiniciarContador(){
+        //ContadorEstado = 0;
+    }
+    
+    public ArrayList<Par> EliminarSubcalces(ArrayList<Par> p){
+        ArrayList<Par> calcesFiltrados = new ArrayList<Par>();
+        for (int i = 0; i < p.size(); i++) {
+            Par pivote = p.get(i);
+            boolean noEsSubcalce = true;
+            for (int j = 0; j < p.size(); j++) {
+                //Nota: El contiene comprueba que no sea el mismo nodo.
+                if (p.get(j).Contiene(pivote)){
+                    noEsSubcalce = false;
+                    break;
+                }
+            }
+            if (noEsSubcalce){
+                calcesFiltrados.add(pivote);
+            }
+        }        
+        return calcesFiltrados;    
     }
      
      
